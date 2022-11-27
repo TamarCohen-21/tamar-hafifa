@@ -1,0 +1,27 @@
+.input-search-item-by-name{
+    margin-right: 80px;
+}
+
+.input-search-item-by-categ{
+    margin-right: 40px;
+}
+
+.input-order-item-by-id{
+    margin-right: 80px;
+}
+
+.div-item-search{
+    display: flex;
+}
+
+.div-sidebar{
+    background-color: white;
+    margin-top: 30vh;
+    margin-left: 7vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-order{
+    margin-top: 80px;
+}
