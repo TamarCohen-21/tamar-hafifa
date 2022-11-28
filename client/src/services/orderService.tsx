@@ -9,7 +9,7 @@ export default class OrderService {
   }
 
   static async addOrder(order: IOrder){
-    return (await http.post(`${orderUrl}`, order)).data;
+    return (await http.post(orderUrl, order)).data;
   }
 
   static async ordersAndItemsById(orderId: string){

@@ -41,7 +41,7 @@ const CartPopUp = observer(() => {
         onHide={handleCartPopUp}
         dismissableMask={true}
         footer={footer}
-        style={{ width: "50vw", height: "36vw" }}
+        id="cart-dialog"
       >
         <DataTable
           header="רשימת פריטים"
@@ -54,7 +54,7 @@ const CartPopUp = observer(() => {
           <Column field="unitsToOrder" header="כמות"></Column>
           <Column field="price" header="מחיר ליחידה"></Column>
         </DataTable>
-        <h3>ס"הכ:</h3>
+        <h3>סה"כ:</h3>
         <h3>{cartStore.totalPrice}</h3>
       </Dialog>
       <Button

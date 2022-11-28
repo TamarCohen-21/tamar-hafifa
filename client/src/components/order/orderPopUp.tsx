@@ -61,7 +61,7 @@ const OrderPopUp: React.FC<OrderPopUpPtops> = ({
           <Column field="units" header="כמות"></Column>
           <Column field="item.price" header="מחיר"></Column>
         </DataTable>
-        <h3>ס"הכ:</h3>
+        <h3>סה"כ:</h3>
         <h3>{orderPrice} ש"ח</h3>
       </Dialog>
     </div>

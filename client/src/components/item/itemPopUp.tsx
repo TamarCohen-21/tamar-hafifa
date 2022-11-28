@@ -7,11 +7,11 @@ import { cartStore } from "../../store/cartStore";
 import { observer } from "mobx-react";
 import { toast } from 'react-toastify';
 
+import "../../comCss/item.css";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
-import "../../comCss/item.css";
 
 interface ItemPopUpPtops {
   itemPopUp: IItem | undefined;
@@ -59,7 +59,8 @@ const ItemPopUp: React.FC<ItemPopUpPtops> = observer(({ itemPopUp,setItemPopUp,d
             buttonLayout="horizontal"
             incrementButtonIcon="pi pi-plus-circle"
             decrementButtonIcon="pi pi-minus-circle"
-            style={{ width: 130 }}
+            // style={{ width: 130 }}
+            inputId="item-popPup-input"
             min={1}
             max={itemPopUp.units}
           />
