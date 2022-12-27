@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 const Item = observer(() => {
 
   const [displayItemPopUp, setDisplayItemPopUp] = useState<boolean>(false);
-  const [itemPopUp, setItemPopUp] = useState<IItem>();
+  const [itemPopUp, setItemPopUp] = useState<IItem | undefined>();
 
   return (
     <div>
@@ -18,7 +18,6 @@ const Item = observer(() => {
 
       <ItemPopUp
         itemPopUp={itemPopUp}
-        setItemPopUp={setItemPopUp}
         displayItemPopUp={displayItemPopUp}
         setDisplayItemPopUp={setDisplayItemPopUp}
       />

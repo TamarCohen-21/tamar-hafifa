@@ -12,7 +12,7 @@ const OrderSchema = new Schema<OrderInterface>({
      units: {type: Number, required: true} ,_id: false}
   ],
   idNumber: { type: Number, required: true },
-  date: { type: Date, default: new Date(), required: false },
+  date: { type: String, default: ()=> new Date().toLocaleDateString(), required: false },
 });
 
 export const OrderModel = mongoose.model("Order", OrderSchema);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { DataTable } from "primereact/datatable";
@@ -11,6 +11,7 @@ import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
+import '../../comCss/order.css';
 
 interface OrderPopUpPtops {
   orderPopUp: IOrder | undefined;
@@ -30,7 +31,7 @@ const OrderPopUp: React.FC<OrderPopUpPtops> = ({
   };
 
   const deleteOrder = () => {
-    ordersStore.deleteOrder(orderPopUp?.id!);
+    ordersStore.deleteOrder((orderPopUp as IOrder).id as string);
     handleOrderDialog();
   };
 
@@ -55,6 +56,7 @@ const OrderPopUp: React.FC<OrderPopUpPtops> = ({
         onHide={handleOrderDialog}
         dismissableMask={true}
         footer={footer}
+        id="orderPopUp"
       >
         <DataTable showGridlines value={orderPopUp?.items}>
           <Column field="item.name" header="שם"></Column>

@@ -5,7 +5,7 @@ const orderUrl = "/order";
 
 export default class OrderService {
   static async getAll() {
-    return (await http.get<Array<IOrder>>(`${orderUrl}/`)).data;
+    return (await http.get<Array<IOrder>>(orderUrl)).data;
   }
 
   static async addOrder(order: IOrder){

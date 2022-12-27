@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import IOrder from "../../types/IOrder";
-import IItem from "../../types/IItem";
 import { Button } from "primereact/button";
 import OrderPopUp from "./orderPopUp";
 import { ordersStore } from "../../store/ordersStore";
 import { observer } from "mobx-react";
+import IItem from "../../types/IItem";
 
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import "../../comCss/orders.css";
-
 
 interface IOrderTableProps {
   orderPopUp: IOrder | undefined;
@@ -28,43 +27,29 @@ const OrdersTable: React.FC<IOrderTableProps> = ({ orderPopUp,setOrderPopUp,disp
 
   const [orderPrice, setOrderPrice] = useState<number>(0);
 
-  const handleOrderDialog = (orderData: IOrder) => {
+  const handleOrderDialog = async(orderData: IOrder) => {
     setOrderPopUp({...orderData});
-    setDisplayOrderPopUp((orderD) => !orderD);
-    sumOrderPrice(orderData);
+    const orderPrice = sumOrderPrice(orderData);
+    handleOrderPrice(orderPrice);
+    setDisplayOrderPopUp((orderD) => !orderD); 
   }
 
-  const itemsUnits = (orderData: IOrder) => {
-    return <>{orderData.items?.length}</>;
-  };
+  const handleOrderPrice =(orderPrice: number)=>{
+    setOrderPrice(orderPrice)
+  }
 
-  const orderDate = (orderData: IOrder) => {
-    if (orderData.date) {
-      const date = new Date(orderData.date.toString());
-      const year = date.getFullYear();
-      const mm = date.getMonth() + 1;
-      const dd = date.getDate() + 2;
-      let day = dd.toString();
-      let month = mm.toString();
-
-      if (dd < 10) day = "0" + dd;
-      if (mm < 10) month = "0" + mm;
-      return (
-        <p>
-          {day}/{month}/{year}
-        </p>
-      );
-    }
-    return <p>Error</p>;
+  const sumItemsUnits = (orderData: any) => {
+    let sumUnits = 0;
+    orderData.items.map((item: IItem)=>
+     {sumUnits += item.units;})
+    return <>{sumUnits}</>;
   };
 
   const sumOrderPrice = (orderData: any) => {    
-    let price: number = 0;
-    orderData.items.forEach((item: any) => {
-      price += item.units * item.item.price;
-    });
-    setOrderPrice(price);
-    return <>{price} ש"ח</>;
+    const price = orderData.items.reduce((sumPrice: number,item: any)=>
+      sumPrice + item.item.price * item.units,0
+    )
+    return price;
   };
 
   const showOrderPopUp = (orderData: any) => {
@@ -84,7 +69,7 @@ const OrdersTable: React.FC<IOrderTableProps> = ({ orderPopUp,setOrderPopUp,disp
       <div className="div-orders-table">
         <div className="card">
           <DataTable
-            value={ordersStore.orders}
+            value={ordersStore.ordersFilter}
             header="רשימת הזמנות"
             showGridlines
             responsiveLayout="scroll"
@@ -95,8 +80,8 @@ const OrdersTable: React.FC<IOrderTableProps> = ({ orderPopUp,setOrderPopUp,disp
             emptyMessage={"אין הזמנות"}
           >
             <Column field="idNumber" header="מזהה"></Column>
-            <Column header="כמות פריטים" body={itemsUnits}></Column>
-            <Column header="תאריך" body={orderDate}></Column>
+            <Column header="כמות" body={sumItemsUnits}></Column>
+            <Column header="תאריך" field="date"></Column>
             <Column header="סך הכל" body={sumOrderPrice}></Column>
             <Column
               header="פרטי הזמנה"

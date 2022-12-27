@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import IItem from "../../types/IItem";
@@ -21,17 +21,14 @@ const ItemsTable: React.FC<IItemTableProps> = ({
   setItemPopUp,
   setDisplayItemPopUp,
 }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  const handleItemDialog = (itemData: any) => {
+ 
+  const handleItemDialog = (itemData: IItem) => {
     setItemPopUp({ ...itemData });
     setDisplayItemPopUp((itemD) => !itemD);
   };
 
-
-
-  const showItemPopUp = (itemData: any) => {
-    return (
+  const showItemPopUp = (itemData: IItem) =>
+    itemData.units > 0 ? (
       <React.Fragment>
         <Button
           icon="pi pi-external-link"
@@ -39,8 +36,13 @@ const ItemsTable: React.FC<IItemTableProps> = ({
           onClick={() => handleItemDialog(itemData)}
         ></Button>
       </React.Fragment>
+    ) : (
+      <React.Fragment>
+        <Button className="p-button-danger p-button-outlined" disabled={true}>
+          אזל מהמלאי
+        </Button>
+      </React.Fragment>
     );
-  };
 
   return (
     <div>
@@ -48,14 +50,10 @@ const ItemsTable: React.FC<IItemTableProps> = ({
         <div className="card">
           <DataTable
             header="רשימת פריטים"
-            value={itemsStore.items}
+            value={itemsStore.itemsFilter}
             showGridlines
             responsiveLayout="scroll"
-            selection={selectedItem}
-            onSelectionChange={(e) => {
-              setSelectedItem(e.value);
-            }}
-            emptyMessage={'אין מוצרים מתאימים'}
+            emptyMessage={"אין מוצרים מתאימים"}
           >
             <Column field="name" header="שם פריט"></Column>
             <Column field="price" header="מחיר ליחידה"></Column>

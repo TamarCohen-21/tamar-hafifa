@@ -13,5 +13,13 @@
 }
 
 #item-popPup-input{
-    width: 20;
+    width:9vw;
+}
+
+#buy-item-button{
+    margin-top: 25px;
+}
+
+#like-item-button{
+    margin-top: 15px;
 }

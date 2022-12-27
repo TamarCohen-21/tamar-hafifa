@@ -25,3 +25,11 @@
 .btn-order{
     margin-top: 80px;
 }
+
+.search-input-showItem{
+    visibility: visible;
+}
+
+.search-input-showOrder{
+    visibility: hidden;
+}

@@ -4,7 +4,7 @@ import OrdersTable from "./ordersTable";
 
 const Order = () => {
   const [displayOrderPopUp, setDisplayOrderPopUp] = useState<boolean>(false);
-  const [orderPopUp, setOrderPopUp] = useState<IOrder>();
+  const [orderPopUp, setOrderPopUp] = useState<IOrder | undefined>();
 
   return (
     <div>
