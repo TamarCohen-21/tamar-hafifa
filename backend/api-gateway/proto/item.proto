@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package ItemsService;
+
+service ItemsService {
+    rpc GetAllItems(GetAllItemsReq) returns (AllItems) {}
+    rpc GetItemById(ItemIdReq) returns (Item) {}
+    rpc DeleteItemById(ItemIdReq) returns (Item) {}
+    rpc AddItem(AddItemReq) returns (Item) {}
+    rpc UpdateItem(ItemToUpdate) returns (Item) {}
+    rpc BuyItemAndUpdate(ItemToBuyAndUpdateReq) returns (Item) {}
+    rpc AddUnitsToItem(AddUnitsToItemReq) returns (Item) {}
+}
+
+message GetAllItemsReq {}
+
+message ItemIdReq {
+    string id = 1;
+}
+
+message Item {
+    string name = 1;
+    int32 price = 2;
+    Category category = 3;
+    int32 units = 4;
+    int32 idNumber = 5;
+    string imageUrl = 6;
+    string id = 7;
+}
+
+message AddItemReq {
+    string name = 1;
+    int32 price = 2;
+    Category category = 3;
+    int32 units = 4;
+    optional string imageUrl = 5;
+    optional int32 idNumber = 6;
+}
+
+message ItemToUpdate {
+    string name = 1;
+    int32 price = 2;
+    Category category = 3;
+    int32 units = 4;
+    string id = 5;
+    optional string imageUrl = 6;
+}
+
+message ItemToBuyAndUpdateReq {
+    string id = 1;
+    int32 unitsToOrder = 2;
+}
+
+message AddUnitsToItemReq {
+    string id = 1;
+    int32 unitsToAdd = 2;
+}
+
+message AllItems {
+    repeated Item Items = 1;
+}
+
+enum Category {
+    FRUITS = 0;
+    VEGETABLES = 1;
+    FAT = 2;
+    PROTEIN = 3;
+    DAIRY = 4;
+    SWEETS = 5;
+    CARBOHYDRATES = 6;
+    MEAT = 7;
+}
